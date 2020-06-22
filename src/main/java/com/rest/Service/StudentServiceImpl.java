@@ -51,6 +51,10 @@ public class StudentServiceImpl implements StudentService {
             throw new IllegalStateException("Bad Email");
         }
 
+        if (student.getEmail().length() <= 6) {
+            throw new IllegalStateException("Email too short");
+        }
+
         for (int i = 0; i < chars.length(); i++) {
             char j = chars.charAt(i);
             String symbol = String.valueOf(j);
@@ -112,7 +116,7 @@ public class StudentServiceImpl implements StudentService {
             Student find = studentRepository.findByEmail(student.getEmail());
             if (find != null && !id.equals(find.getId())) {
                 throw new IllegalStateException("Student with such email is already exists");
-            } else if (student.getEmail().length() < 5) {
+            } else if (student.getEmail().length() <= 6) {
                 throw new IllegalStateException("Email too short");
             } else if (!student.getEmail().contains("@") || !student.getEmail().contains(".")) {
                 throw new IllegalStateException("Bad Email");
