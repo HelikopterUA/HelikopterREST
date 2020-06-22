@@ -12,7 +12,7 @@ public class StudentGroupServiceImpl implements StudentGroupService {
     @Autowired
     private StudentGroupRepository studentGroupRepository;
 
-    String chars = "!@#$%^&*()_+?><{}|\\=`~";
+    String chars = "!@#$%^&*()_+?><{}|\\=`~1";
 
     @Override
     public List<StudentGroup> getAllGroup() {
