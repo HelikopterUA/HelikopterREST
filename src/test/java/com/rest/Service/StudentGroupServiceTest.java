@@ -17,10 +17,17 @@ public class StudentGroupServiceTest {
     @InjectMocks
     private StudentGroupServiceImpl studentGroupService;
 
+    public StudentGroup generateGroup(){
+        StudentGroup studentGroup = new StudentGroup();
+        studentGroup.setId(1);
+        studentGroup.setStudentGroupName("КН-3");
+        return studentGroup;
+    }
+
     @Test
     public void shouldCreateGroup(){
-        StudentGroup studentGroup = new StudentGroup("2123");
-        studentGroupRepository.save(studentGroup);
+        StudentGroup studentGroup = generateGroup();
+        StudentGroup studentGroup1 = studentGroupService.saveStudentGroup(studentGroup);
     }
 
 }
