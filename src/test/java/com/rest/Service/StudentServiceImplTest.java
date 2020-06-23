@@ -12,9 +12,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
+
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class StudentServiceTest {
+@SpringBootTest
+public class StudentServiceImplTest {
 
     @Mock
     private StudentRepository studentRepository;
@@ -50,17 +56,19 @@ public class StudentServiceTest {
 
     @Test
     public void shouldFindStudentById() {
+        long id = 1;
         Student student = generateStudent();
-        Student created = studentService.saveStudent(student);
-        studentService.getStudentById(student.getId());
+        when(studentRepository.findById(id)).thenReturn(java.util.Optional.of(student));
+        Student find = studentService.getStudentById(id);
+        Assertions.assertThat(find.getEmail()).isEqualTo(student.getEmail());
     }
 
     @Test
-    public void shouldUpdateStudent() {
-    }
-
-    @Test
-    public void shouldFindStudentByStudentGroup() {
-
+    public void shouldFindAllStudent() {
+        Student student1 = generateStudent();
+        Student student2 = generateStudent();
+        when(studentRepository.findAll()).thenReturn(List.of(student1, student2));
+        List<Student> students = studentService.getAllStudents();
+        Assertions.assertThat(students.size()).isEqualTo(2);
     }
 }
